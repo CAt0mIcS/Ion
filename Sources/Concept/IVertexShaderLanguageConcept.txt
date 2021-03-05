@@ -1,0 +1,35 @@
+#Vertex Shader
+
+uniform(Frequency::PerObject) PerObjectData
+{
+	Matrix model;
+} uboObj;
+
+uniform(Frequency::PerScene) PerSceneData
+{
+	Matrix view;
+	Matrix proj;
+} uboScene;
+
+
+struct VSOut
+{
+	Float3 pos : SV_POSITION;  
+	Float3 color;  
+};
+
+
+// --> layout(location = 0) in pos;
+// --> layout(location = 1) in color;
+
+// --> layout(location = 0) out VSOut_pos;
+// --> layout(location = 1) out VSOut_color;
+
+
+VSOut main(Float3 pos, Float3 color)
+{
+	VSOut output;
+	output.color = color;
+	output.pos = uboScene.proj * uboScene.view * uboObj.model * pos;
+	return output;
+}

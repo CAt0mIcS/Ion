@@ -1,0 +1,7 @@
+#Fragment Shader
+
+
+Float4 main(Float3 color)
+{
+	return Float4(color.xyz, 1.0f);
+}

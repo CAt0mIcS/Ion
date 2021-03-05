@@ -1,0 +1,11 @@
+*.log
+.vs/
+.git/
+.github/
+*.json
+*.cso
+Doxygen/
+Doxyfile
+build*/
+*.spv
+.vscode/
