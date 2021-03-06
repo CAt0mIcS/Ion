@@ -1,6 +1,13 @@
 set(SRC
 	"Ipch.h"
 	"IBase.h"
+
+	# --------------------------------
+	# Tokenization
+	"Tokenization/ITokenizer.h"
+	"Tokenization/ITokenizer.cpp"
+	"Tokenization/ITokens.h"
+	"Tokenization/ITokens.cpp"
 )
 
 set(PRIVATE_INC

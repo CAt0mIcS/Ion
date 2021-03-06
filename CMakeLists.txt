@@ -104,7 +104,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include("CMake/Macros.cmake")
 
 # add_subdirectory("Extern")
-add_subdirectory("Sources")
+add_subdirectory("Ion")
 
 if(ION_BUILD_TESTS)
     add_subdirectory("Tests")
