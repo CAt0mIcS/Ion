@@ -1,6 +1,8 @@
 #include "Ipch.h"
 #include "ICompiler.h"
 
+#include "Tokenization/ITokenizer.h"
+
 
 namespace At0::Ion
 {
@@ -8,10 +10,18 @@ namespace At0::Ion
 
 	Compiler::~Compiler() {}
 
-	Error* Compiler::Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc)
+	void Compiler::Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc)
 	{
-		m_Error = MakeScope<CompilerError>("File", 32, "Invalid statement.");
+		delete LogError(new CompilerError("File", 32, "message"));
+		resultDesc.result = "F";
+	}
 
-		return m_Error.get();
+	Error* Compiler::LogError(Error* error) const
+	{
+		if (m_ErrorCallback)
+		{
+			m_ErrorCallback(*error);
+		}
+		return error;
 	}
 }  // namespace At0::Ion

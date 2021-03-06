@@ -7,18 +7,21 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 
 
 namespace At0::Ion
 {
 	struct SourceDescription
 	{
-		std::vector<std::string> sources;
+		std::string filepath;
+		std::string fileContents;
 	};
 
 	struct ResultDescription
 	{
-		std::vector<std::vector<uint32_t>> buffers;
+		std::string result;
 	};
 
 
@@ -28,9 +31,18 @@ namespace At0::Ion
 		Compiler();
 		~Compiler();
 
-		Error* Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc);
+		template<typename T>
+		void SetErrorCallback(T&& fn)
+		{
+			m_ErrorCallback = fn;
+		}
+
+		void Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc);
 
 	private:
-		Scope<Error> m_Error = nullptr;
+		[[nodiscard]] Error* LogError(Error* error) const;
+
+	private:
+		std::function<void(Error&)> m_ErrorCallback;
 	};
 }  // namespace At0::Ion

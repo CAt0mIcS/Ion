@@ -9,12 +9,12 @@
 
 namespace At0::Ion
 {
-	class ION_EXPORT Error : public std::exception
+	class ION_EXPORT Error
 	{
 	public:
 		Error(std::string file, uint32_t line, std::string message);
 
-		const char* what() const override;
+		ION_EXPORT friend std::ostream& operator<<(std::ostream& os, const Error& error);
 
 		virtual std::string GetType() const = 0;
 		virtual ~Error() = default;
@@ -23,8 +23,6 @@ namespace At0::Ion
 		std::string m_File;
 		uint32_t m_Line;
 		std::string m_Message;
-
-		mutable std::string m_WhatBuffer;
 	};
 
 	class ION_EXPORT CompilerError : public Error

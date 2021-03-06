@@ -9,13 +9,12 @@ namespace At0::Ion
 	{
 	}
 
-	const char* Error::what() const
+	std::ostream& operator<<(std::ostream& os, const Error& error)
 	{
-		std::ostringstream oss;
-		oss << GetType() << '\n'
-			<< "[File] " << m_File << "\n[Line] " << m_Line << "\n[Message] " << m_Message;
+		os << error.GetType() << '\n'
+		   << "[File] " << error.m_File << "\n[Line] " << error.m_Line << "\n[Message] "
+		   << error.m_Message;
 
-		m_WhatBuffer = oss.str();
-		return m_WhatBuffer.c_str();
+		return os;
 	}
 }  // namespace At0::Ion

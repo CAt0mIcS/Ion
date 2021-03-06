@@ -6,23 +6,42 @@ using namespace At0;
 #include <vector>
 #include <iostream>
 
+#include <fstream>
+
+
+std::string ReadShader(std::string_view filepath)
+{
+	std::ifstream reader(filepath.data(), std::ios::ate);
+
+	size_t filesize = reader.tellg();
+	reader.seekg(std::ios::beg);
+
+	std::string code;
+	code.resize(filesize);
+
+	reader.read(code.data(), filesize);
+
+	return code;
+}
+
+
 int main()
 {
-	std::string vertexSource = "Resources/Shaders/DefaultShader.vert";
-	std::string fragmentSource = "Resources/Shaders/DefaultShader.frag";
+	std::string vertexSource = "DefaultShader.vert";
+	std::string fragmentSource = "DefaultShader.frag";
 
 	Ion::Compiler compiler;
+	compiler.SetErrorCallback(
+		[](Ion::Error& error) { std::cout << "Ion error occured: " << error << '\n'; });
 
 	Ion::SourceDescription sourceDesc{};
-	sourceDesc.sources.emplace_back(vertexSource);
-	sourceDesc.sources.emplace_back(fragmentSource);
-	// ...
+	sourceDesc.filepath = vertexSource;
+	sourceDesc.fileContents = ReadShader(vertexSource);
 
 	Ion::ResultDescription resultDesc{};
 
-	Ion::Error* error = compiler.Compile(sourceDesc, resultDesc);
-	if (error)
-	{
-		std::cout << "Compilation failed with error: " << error->what() << '\n';
-	}
+	compiler.Compile(sourceDesc, resultDesc);
+
+	std::cout << "\n\n----------------------------\n";
+	std::cout << resultDesc.result << '\n';
 }
