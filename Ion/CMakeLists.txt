@@ -8,6 +8,16 @@ set(SRC
 	"Tokenization/ITokenizer.cpp"
 	"Tokenization/ITokens.h"
 	"Tokenization/ITokens.cpp"
+
+	# --------------------------------
+	# Core
+	"Core/ICompiler.h"
+	"Core/ICompiler.cpp"
+
+	# --------------------------------
+	# Utils
+	"Utils/IError.h"
+	"Utils/IError.cpp"
 )
 
 set(PRIVATE_INC
