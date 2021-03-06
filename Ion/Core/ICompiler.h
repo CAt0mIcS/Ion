@@ -40,7 +40,7 @@ namespace At0::Ion
 		void Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc);
 
 	private:
-		[[nodiscard]] Error* LogError(Error* error) const;
+		Scope<Error> LogError(Scope<Error> error) const;
 
 	private:
 		std::function<void(Error&)> m_ErrorCallback;

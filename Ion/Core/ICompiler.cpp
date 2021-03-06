@@ -12,11 +12,11 @@ namespace At0::Ion
 
 	void Compiler::Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc)
 	{
-		delete LogError(new CompilerError("File", 32, "message"));
+		LogError(MakeScope<CompilerError>("File", 32, "message"));
 		resultDesc.result = "F";
 	}
 
-	Error* Compiler::LogError(Error* error) const
+	Scope<Error> Compiler::LogError(Scope<Error> error) const
 	{
 		if (m_ErrorCallback)
 		{
