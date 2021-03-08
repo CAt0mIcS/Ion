@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../IBase.h"
 
@@ -25,11 +25,11 @@ namespace At0::Ion
 		std::string m_Message;
 	};
 
-	class ION_EXPORT CompilerError : public Error
+	class ION_EXPORT TokenizationError : public Error
 	{
 	public:
 		using Error::Error;
 
-		std::string GetType() const override { return "CompileError"; }
+		std::string GetType() const override { return "Tokenization Error"; }
 	};
 }  // namespace At0::Ion

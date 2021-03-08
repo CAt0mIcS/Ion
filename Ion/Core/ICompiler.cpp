@@ -12,7 +12,7 @@ namespace At0::Ion
 
 	void Compiler::Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc)
 	{
-		Tokenizer tokenizer(sourceDesc.fileContents);
+		Tokenizer tokenizer(sourceDesc.fileContents, *this);
 	}
 
 	Scope<Error> Compiler::LogError(Scope<Error> error) const
@@ -21,6 +21,7 @@ namespace At0::Ion
 		{
 			m_ErrorCallback(*error);
 		}
+		throw std::exception("[Ion] Compilation error occured.");
 		return error;
 	}
 }  // namespace At0::Ion

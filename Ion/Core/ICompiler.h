@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../IBase.h"
 
@@ -27,6 +27,8 @@ namespace At0::Ion
 
 	class ION_EXPORT Compiler
 	{
+		friend class Tokenizer;
+
 	public:
 		Compiler();
 		~Compiler();

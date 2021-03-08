@@ -1,4 +1,3 @@
-#version 450 core
 
 
 float4 main(float3 color)
