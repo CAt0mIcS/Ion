@@ -82,9 +82,9 @@ namespace At0::Ion
 				}
 			}
 
-			Token(TokenType type, const std::string& data,
-				std::optional<Position> startPos = std::nullopt,
-				std::optional<Position> endPos = std::nullopt)
+			template<>
+			Token(TokenType type, std::string& data, std::optional<Position> startPos,
+				std::optional<Position> endPos)
 				: m_Type(type)
 			{
 				m_Data.resize(data.size());
@@ -101,8 +101,8 @@ namespace At0::Ion
 			friend std::ostream& operator<<(std::ostream& os, const Token& token);
 
 			TokenType GetType() const { return m_Type; }
-			char* GetData() { return m_Data.data(); }
-			const char* GetData() const { return m_Data.data(); }
+			std::vector<char>& GetData() { return m_Data; }
+			const std::vector<char>& GetData() const { return m_Data; }
 
 		private:
 			TokenType m_Type;

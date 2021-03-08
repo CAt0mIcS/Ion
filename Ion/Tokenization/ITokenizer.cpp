@@ -24,9 +24,13 @@ namespace At0::Ion
 		std::string tokenStr = "Unknown Token " + std::to_string((uint32_t)token.GetType());
 		switch (token.GetType())
 		{
-		case Tokenizer::TokenType::Int: tokenStr = "Int"; break;
-		case Tokenizer::TokenType::UInt: tokenStr = "UInt"; break;
-		case Tokenizer::TokenType::Float: tokenStr = "Float"; break;
+		case Tokenizer::TokenType::Int: tokenStr = "Int " + *(int*)token.GetData().data(); break;
+		case Tokenizer::TokenType::UInt:
+			tokenStr = "UInt " + std::to_string(*(uint32_t*)token.GetData().data());
+			break;
+		case Tokenizer::TokenType::Float:
+			tokenStr = "Float " + std::to_string(*(float*)token.GetData().data());
+			break;
 		case Tokenizer::TokenType::Double: tokenStr = "Double"; break;
 		case Tokenizer::TokenType::Plus: tokenStr = "Plus"; break;
 		case Tokenizer::TokenType::Minus: tokenStr = "Minus"; break;
@@ -35,12 +39,19 @@ namespace At0::Ion
 		case Tokenizer::TokenType::LeftParentheses: tokenStr = "LeftParentheses"; break;
 		case Tokenizer::TokenType::RightParentheses: tokenStr = "RightParentheses"; break;
 		case Tokenizer::TokenType::Equal: tokenStr = "Equal"; break;
-		case Tokenizer::TokenType::Identifier: tokenStr = "Identifier"; break;
-		case Tokenizer::TokenType::Keyword: tokenStr = "Keyword"; break;
+		case Tokenizer::TokenType::Identifier:
+			tokenStr = "Identifier " + std::string(token.GetData().begin(), token.GetData().end());
+			break;
+		case Tokenizer::TokenType::Keyword:
+			tokenStr = "Keyword " + std::string(token.GetData().begin(), token.GetData().end());
+			break;
 		case Tokenizer::TokenType::Function: tokenStr = "Function"; break;
 		case Tokenizer::TokenType::EndOfFile: tokenStr = "EndOfFile"; break;
 		case Tokenizer::TokenType::Colon: tokenStr = "Colom"; break;
-		case Tokenizer::TokenType::SystemSemantic: tokenStr = "SystemSemantic"; break;
+		case Tokenizer::TokenType::SystemSemantic:
+			tokenStr =
+				"SystemSemantic " + std::string(token.GetData().begin(), token.GetData().end());
+			break;
 		case Tokenizer::TokenType::Dot: tokenStr = "Dot"; break;
 		case Tokenizer::TokenType::OpenScope: tokenStr = "Open Scope"; break;
 		case Tokenizer::TokenType::CloseScope: tokenStr = "Close Scope"; break;
@@ -275,7 +286,9 @@ namespace At0::Ion
 		// Identifier is actually a keyword
 		if (auto it = std::find(s_Keywords.begin(), s_Keywords.end(), idStr);
 			it != s_Keywords.end())
+		{
 			type = TokenType::Keyword;
+		}
 
 		// Identifier is a predefined semantic
 		if (auto it = std::find(s_SystemSemantics.begin(), s_SystemSemantics.end(), idStr);
