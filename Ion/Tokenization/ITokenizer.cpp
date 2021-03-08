@@ -21,7 +21,7 @@ namespace At0::Ion
 
 	std::ostream& operator<<(std::ostream& os, const Tokenizer::Token& token)
 	{
-		std::string tokenStr = "Unknown Token";
+		std::string tokenStr = "Unknown Token " + std::to_string((uint32_t)token.GetType());
 		switch (token.GetType())
 		{
 		case Tokenizer::TokenType::Int: tokenStr = "Int"; break;
@@ -39,6 +39,14 @@ namespace At0::Ion
 		case Tokenizer::TokenType::Keyword: tokenStr = "Keyword"; break;
 		case Tokenizer::TokenType::Function: tokenStr = "Function"; break;
 		case Tokenizer::TokenType::EndOfFile: tokenStr = "EndOfFile"; break;
+		case Tokenizer::TokenType::Colon: tokenStr = "Colom"; break;
+		case Tokenizer::TokenType::SystemSemantic: tokenStr = "SystemSemantic"; break;
+		case Tokenizer::TokenType::Dot: tokenStr = "Dot"; break;
+		case Tokenizer::TokenType::OpenScope: tokenStr = "Open Scope"; break;
+		case Tokenizer::TokenType::CloseScope: tokenStr = "Close Scope"; break;
+		case Tokenizer::TokenType::EndOfLine: tokenStr = "EndOfLine"; break;
+		case Tokenizer::TokenType::Assignment: tokenStr = "Assignment"; break;
+		case Tokenizer::TokenType::Comma: tokenStr = "Comma"; break;
 		}
 
 		os << "TokenType: " << tokenStr;

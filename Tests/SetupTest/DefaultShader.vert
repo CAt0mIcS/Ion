@@ -1,16 +1,3 @@
-// uniform(Frequency::PerObject) ObjectData
-// {
-// 	matrix model;
-// } uboObj;
-// 
-// uniform(Frequency::PerScene) SceneData
-// {
-// 	matrix view;
-// 	matrix proj;
-// } uboScene;
-
-
-
 struct VSOut
 {
 	float4 pos : SV_POSITION;
