@@ -1,4 +1,4 @@
-#include "Ipch.h"
+﻿#include "Ipch.h"
 #include "ICompiler.h"
 
 #include "Tokenization/ITokenizer.h"
@@ -12,8 +12,7 @@ namespace At0::Ion
 
 	void Compiler::Compile(const SourceDescription& sourceDesc, ResultDescription& resultDesc)
 	{
-		LogError(MakeScope<CompilerError>("File", 32, "message"));
-		resultDesc.result = "F";
+		Tokenizer tokenizer(sourceDesc.fileContents);
 	}
 
 	Scope<Error> Compiler::LogError(Scope<Error> error) const
