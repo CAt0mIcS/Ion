@@ -23,38 +23,48 @@ namespace At0::Ion
 	public:
 		enum class TokenType
 		{
-			Int,
-			Float,
+			// Int,
+			// Int2,
+			// Int3,
+			// Int4,
+			// Int2x2,
+			// Int3x3,
+			// Int4x4,
+
+			// UInt,
+			// UInt2,
+			// UInt3,
+			// UInt4,
+			// UInt2x2,
+			// UInt3x3,
+			// UInt4x4,
+
+			// Float,
+			// Float2,
+			// Float3,
+			// Float4,
+			// Float2x2,
+			// Float3x3,
+			// Float4x4,
+
+			// Matrix,
+
 			Plus,
 			Minus,
 			Multiply,
 			Divide,
 			LeftParentheses,
-			RightParentheses
+			RightParentheses,
+			Equal,
+
+			Identifier,
+			Keyword,
+
+			Function,
+
+			EndOfFile
 		};
 
-		class Token
-		{
-		public:
-			template<typename T>
-			Token(TokenType type, T&& value) : m_Type(type)
-			{
-				m_Value.resize(sizeof(value));
-				memcpy(m_Value.data(), &value, sizeof(value));
-			}
-
-			TokenType GetType() const { return m_Type; }
-
-			template<typename T>
-			T& GetValue()
-			{
-				return *(T*)m_Value.data();
-			}
-
-		private:
-			TokenType m_Type;
-			std::vector<char> m_Value;
-		};
 
 	public:
 		Tokenizer(std::string fileContent);
@@ -66,6 +76,28 @@ namespace At0::Ion
 		std::string m_Text;
 		Position m_Position;
 		char m_CurrentChar = '\0';
+
+		// clang-format off
+		inline static std::vector<const char*> s_Keywords
+		{
+			// Data types
+			"int", "int2", "int3", "int4",
+			"uint", "uint2", "uint3", "uint4",
+			"float", "float2", "float3", "float4",
+			"matrix", "struct", "uniform"
+
+			// Control blocks
+			"if", "else if", "else", "for", "while", "continue", "break",
+		};
+		// clang-format on
+
+		inline static std::vector<const char*> s_Letters{ "A", "B", "C", "D", "E", "F", "G", "H",
+			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
+			"Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+			"q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+
+		inline static std::vector<const char*> s_Numbers{ "0", "1", "2", "3", "4", "5", "6", "7",
+			"8", "9" };
 	};
 
 }  // namespace At0::Ion
