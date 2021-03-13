@@ -21,7 +21,7 @@ namespace At0::Ion
 		{
 			m_ErrorCallback(*error);
 		}
-		throw std::exception("[Ion] Compilation error occured.");
+		throw std::runtime_error("[Ion] Compilation error occured.");
 		return error;
 	}
 }  // namespace At0::Ion

@@ -82,22 +82,6 @@ namespace At0::Ion
 				}
 			}
 
-			template<>
-			Token(TokenType type, std::string& data, std::optional<Position> startPos,
-				std::optional<Position> endPos)
-				: m_Type(type)
-			{
-				m_Data.resize(data.size());
-				m_Data = std::vector<char>(data.begin(), data.end());
-
-				if (startPos)
-				{
-					m_StartPos = startPos;
-					m_EndPos = startPos;
-					m_EndPos->Advance();
-				}
-			}
-
 			friend std::ostream& operator<<(std::ostream& os, const Token& token);
 
 			TokenType GetType() const { return m_Type; }
@@ -161,5 +145,23 @@ namespace At0::Ion
 
 		inline static std::vector<std::string> s_SystemSemantics{ "SV_POSITION" };
 	};
+
+
+	template<>
+	inline Tokenizer::Token::Token(TokenType type, std::string& data,
+		std::optional<Position> startPos, std::optional<Position> endPos)
+		: m_Type(type)
+	{
+		m_Data.resize(data.size());
+		m_Data = std::vector<char>(data.begin(), data.end());
+
+		if (startPos)
+		{
+			m_StartPos = startPos;
+			m_EndPos = startPos;
+			m_EndPos->Advance();
+		}
+	}
+
 
 }  // namespace At0::Ion
